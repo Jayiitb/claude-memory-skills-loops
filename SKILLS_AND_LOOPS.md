@@ -22,7 +22,7 @@ unattended." Everything drafts, nothing sends.
 
 ### Skill: `comms-voice`
 JP's writing-voice guard. Human, crisp, finite, no em-dashes. Every draft runs
-through it. **Placeholder until JP pastes his own comms skill, which replaces it.**
+through it.
 
 ### Skill: `draft-reply`
 Finds what genuinely needs the CTO across Outlook (personal mail awaiting reply),
@@ -61,18 +61,18 @@ separate reviewer agent confirms the fix is real, not a silenced test.
 ---
 
 ## Build order
-1. `comms-voice` (done) and `draft-reply` (done). JP pastes his real comms skill to
-   replace the placeholder.
+1. `comms-voice` (done) and `draft-reply` (done).
 2. `linkedin-daily` (done) once `IDEOGRAM_API_KEY` is set as an env secret.
-3. Wire the `attention-triage` and `linkedin-daily` **loops** as cron triggers.
+3. Wire the `attention-triage` and `linkedin-daily` **loops** as web scheduled
+   triggers. See `SCHEDULE.md` for the exact cron and prompts (IST: LinkedIn 6 AM,
+   triage 6 AM and 3 PM).
 4. `pr-babysitter` once there is active development here.
 
 ---
 
 ## Setup JP needs to do
-1. **Rotate the Ideogram key** that was shared in chat, then set the new one as an
-   **environment secret** named `IDEOGRAM_API_KEY` (Claude Code web env settings).
-   Never paste it in chat or commit it.
-2. **Paste your comms skill** so it replaces the placeholder and the voice is exactly yours.
-3. Confirm the **cron schedules** you want (for example: triage 7:30am weekdays,
-   LinkedIn 8:00am daily).
+1. Set `IDEOGRAM_API_KEY` (rotated key, exact name, no spaces) as an environment
+   variable on this Claude Code environment, so scheduled runs can read it.
+2. Create the two **web scheduled triggers** from `SCHEDULE.md` (LinkedIn 6 AM IST,
+   triage 6 AM and 3 PM IST).
+3. Confirm Outlook and Slack are authorized for scheduled (headless) runs.

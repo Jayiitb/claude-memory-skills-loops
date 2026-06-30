@@ -1,14 +1,11 @@
 ---
 name: comms-voice
-description: Enforce JP's writing voice on any drafted text (email, Slack, LinkedIn, replies, docs). Human, crisp, finite. Use whenever you draft anything that JP will send or post. PLACEHOLDER until JP pastes his own comms skill, which should replace this file.
+description: Enforce JP's writing voice on any drafted text (email, Slack, LinkedIn, replies, docs). Human, crisp, finite. Use whenever you draft anything that JP will send or post.
 ---
 
 # comms-voice
 
 JP's voice guard. Run every drafted message through these rules before showing it.
-
-> Note: JP has his own comms skill in his personal Claude setup. It did not sync
-> to this environment. When he pastes it, replace this file with his version.
 
 ## Voice rules (hard)
 - **Human, not AI.** No filler, no "I hope this finds you well," no "great question,"

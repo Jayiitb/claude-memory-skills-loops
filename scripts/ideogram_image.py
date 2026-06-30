@@ -20,9 +20,17 @@ API_URL = "https://api.ideogram.ai/v1/ideogram-v3/generate"
 
 
 def generate(prompt: str, out_path: str, aspect: str = "1x1") -> str:
-    key = os.environ.get("IDEOGRAM_API_KEY")
+    # Preferred name is IDEOGRAM_API_KEY. Fallbacks tolerate common near-misses.
+    key = (
+        os.environ.get("IDEOGRAM_API_KEY")
+        or os.environ.get("HYDROGRAM_API_KEY")
+        or os.environ.get("IDEOGRAM_API")
+    )
     if not key:
-        sys.exit("IDEOGRAM_API_KEY is not set. Set it as an environment secret.")
+        sys.exit(
+            "IDEOGRAM_API_KEY is not set. Set it as an environment secret named "
+            "IDEOGRAM_API_KEY (no spaces). Env var names cannot contain spaces."
+        )
 
     # Ideogram v3 generate expects multipart/form-data.
     boundary = "----bqideogramboundary"
