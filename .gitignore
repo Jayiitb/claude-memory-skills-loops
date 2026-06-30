@@ -1,0 +1,17 @@
+# Secrets: never commit these
+.env
+.env.*
+*.key
+.claude/settings.local.json
+
+# Generated assets
+out/
+*.png
+*.jpg
+*.jpeg
+!docs/**/*.png
+
+# Python
+__pycache__/
+*.pyc
+.venv/

@@ -1,99 +1,78 @@
-# Skills & Loops to Build — Becoming Quotient (BQ)
+# Skills & Loops, Becoming Quotient (bQ)
 
-> A backlog of skills (reusable instruction sets) and loops (self-running tasks)
-> for BQ, derived from the loop-engineering principles in [`MEMORY.md`](./MEMORY.md).
+> The build sheet for JP, CTO of bQ. Skills (reusable know-how) and loops
+> (self-running tasks), built on the loop-engineering ideas in [`MEMORY.md`](./MEMORY.md).
 > Owner: jp@becomingquotient.com
 
-The guiding rule from the video: **stop being the loop.** Each item below moves
-a recurring BQ task from "JP types the prompt every time" to "a skill encodes it
-once" or "a loop runs it unattended with a reviewer checking the work."
+The rule from the video: **stop being the loop.** Move recurring CTO work from
+"JP types the prompt every time" to "a skill encodes it once" and "a loop runs it
+unattended." Everything drafts, nothing sends.
 
 ---
 
-## How to read this
-
-- **Skill** = frozen know-how. Lives in `.claude/skills/<name>/SKILL.md`. Invoked
-  on demand (or auto-triggered). Build these first — they're cheap and compounding.
-- **Loop** = a skill that runs on a schedule or until a "done" condition, usually
-  with a separate reviewer agent. Build these once the underlying skill is solid.
-- Every loop needs an explicit **stop condition** and a **reviewer** (the builder
-  never grades itself).
-
-Legend: 🟢 high value / low effort · 🟡 medium · 🔵 bigger build
+## House rules (every skill obeys these)
+- **Draft, never send.** Outlook, Slack, LinkedIn, code. JP reviews and sends.
+- **Crisp.** Yes/no when that is enough, else about ten words. One-minute read.
+- **Human voice, no em-dashes.** Enforced by the `comms-voice` skill.
+- **Confirm before assuming** on real decisions.
 
 ---
 
-## Tier 1 — Build first (high leverage, low risk)
+## Built now (in this repo)
 
-### 🟢 Skill: `meeting-to-actions` (Fireflies → monday.com + Slack)
-Turn every client/internal call into structured output.
-- **Trigger:** "process the latest meeting" or auto after a Fireflies transcript lands.
-- **Does:** pull transcript → extract decisions, action items, owners, due dates →
-  create monday.com items → post a clean recap to the relevant Slack channel.
-- **Reviewer:** a second agent checks every action item maps to a real owner and date
-  before anything is written to monday.com.
+### Skill: `comms-voice`
+JP's writing-voice guard. Human, crisp, finite, no em-dashes. Every draft runs
+through it. **Placeholder until JP pastes his own comms skill, which replaces it.**
 
-### 🟢 Skill: `inbox-triage` (Outlook/M365)
-- **Trigger:** "triage my inbox" / morning loop.
-- **Does:** classify unread mail (client, internal, vendor, noise) → draft replies
-  for routine ones → surface a 5-line "needs JP" list. **Drafts only — never sends.**
+### Skill: `draft-reply`
+Finds what genuinely needs the CTO across Outlook (personal mail awaiting reply),
+Slack (threads needing a real decision or deep technical call), and coding problem
+statements. Drafts a crisp reply in JP's voice. Never sends.
 
-### 🟢 Skill: `weekly-review` (monday.com → doc/email)
-- **Does:** roll up board state into a one-page status: what shipped, what's blocked,
-  what's at risk, what's due next week. Output as a doc and an optional email draft.
+### Skill: `linkedin-daily`
+Drafts one short, punchy, thought-provoking LinkedIn post a day plus a matching
+image, built for views and comments. Includes four post templates. Never posts.
 
----
+### Skill: `meeting-to-actions`
+Turns a Fireflies meeting into owned, dated action items, writes them to monday.com,
+posts a Slack recap. A reviewer pass validates before anything is written. Secondary
+priority, kept because Fireflies and monday are connected.
 
-## Tier 2 — Loops (run unattended, with a reviewer)
-
-### 🟡 Loop: `morning-brief` (cron, weekdays ~7:30am)
-- **Runs:** `inbox-triage` + `weekly-review` deltas + calendar for the day +
-  any monday.com items due today → one Slack DM / email.
-- **Stop condition:** single brief delivered; silent if nothing material changed.
-
-### 🟡 Loop: `meeting-follow-through` (heartbeat, hourly)
-- **Runs:** check for new Fireflies transcripts → run `meeting-to-actions` →
-  also nudge on action items from prior meetings that are now overdue.
-- **Reviewer:** verifies no duplicate items and that nudges aren't spammy.
-
-### 🟡 Loop: `client-cadence-guard` (daily)
-- **Does:** flag clients/contacts with no touchpoint in N days (from Outlook + monday)
-  so relationships don't go cold. Output: a short "reach out to…" list. Silent if clean.
+### Helper: `scripts/ideogram_image.py`
+Generates the LinkedIn image via Ideogram. Reads `IDEOGRAM_API_KEY` from the
+environment. Key is never stored in the repo.
 
 ---
 
-## Tier 3 — Repo / build loops (for this and BQ's web properties)
+## Loops to wire up next
 
-### 🟡 Loop: `pr-babysitter` (this repo + Vercel)
-- **Does:** on an open PR, watch CI → on failure, diagnose and push a fix → re-kick →
-  repeat until green or genuinely stuck. Report Vercel preview URL when ready.
-- **Reviewer:** separate agent confirms the fix is real, not a test silencer.
+### Loop: `attention-triage` (weekday mornings, cron)
+Runs `draft-reply` across Outlook + Slack. Returns a short "needs you" list with a
+ready draft for each. Silent when nothing is actionable. Never sends.
 
-### 🔵 Skill: `design-to-page` (Figma → Vercel)
-- **Does:** take a Figma frame → generate the page/component → open a preview deploy.
-- Pairs with a reviewer agent that checks the build matches the design tokens.
+### Loop: `linkedin-daily` (once a day, cron)
+Runs the `linkedin-daily` skill. Produces the post draft + image + two alternate
+hooks for JP to review and post. Never posts.
 
-### 🟢 Skill: `repo-memory-keeper`
-- **Does:** at the end of a work session, update `MEMORY.md` with new decisions and
-  conventions so the next session starts informed. Keeps the spine current.
-
----
-
-## Suggested build order
-
-1. `meeting-to-actions` + `inbox-triage` (Tier 1 skills) — immediate daily payoff.
-2. `weekly-review` + `repo-memory-keeper`.
-3. Wrap them in the `morning-brief` and `meeting-follow-through` loops.
-4. `pr-babysitter` once there's active development here.
-5. `design-to-page` when there's a Figma → web pipeline to automate.
+### Loop: `pr-babysitter` (this repo, on open PRs)
+Watches CI. On failure, diagnoses, pushes a fix, re-kicks until green or stuck. A
+separate reviewer agent confirms the fix is real, not a silenced test.
 
 ---
 
-## Open questions for JP
-- **"Convert with the BQ email"** — did you want me to (a) tailor everything to BQ
-  (done here), (b) actually *email* this summary to jp@becomingquotient.com, or
-  (c) just brand/attribute it? Tell me and I'll do it.
-- What does a typical BQ week actually look like? The more I know about the real
-  recurring tasks, the sharper these get.
-- Which of the connected tools (Slack / Outlook / Fireflies / monday / Figma /
-  Vercel) is most central to your week? That sets the build order.
+## Build order
+1. `comms-voice` (done) and `draft-reply` (done). JP pastes his real comms skill to
+   replace the placeholder.
+2. `linkedin-daily` (done) once `IDEOGRAM_API_KEY` is set as an env secret.
+3. Wire the `attention-triage` and `linkedin-daily` **loops** as cron triggers.
+4. `pr-babysitter` once there is active development here.
+
+---
+
+## Setup JP needs to do
+1. **Rotate the Ideogram key** that was shared in chat, then set the new one as an
+   **environment secret** named `IDEOGRAM_API_KEY` (Claude Code web env settings).
+   Never paste it in chat or commit it.
+2. **Paste your comms skill** so it replaces the placeholder and the voice is exactly yours.
+3. Confirm the **cron schedules** you want (for example: triage 7:30am weekdays,
+   LinkedIn 8:00am daily).
