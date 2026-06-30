@@ -5,7 +5,7 @@
 > This file is the **knowledge spine** for this repo. It survives between
 > sessions because the model forgets and the repo does not.
 
-**Owner:** JP, CTO of Becoming Quotient (bQ). jp@becomingquotient.com
+**Owner:** JP, co-founder and CTO of Becoming Quotient (bQ). jp@becomingquotient.com
 
 ---
 

@@ -13,19 +13,19 @@ JP's loops, timezone **IST (Asia/Kolkata)**. Both loops draft only. Nothing send
 
 ## Trigger 1: LinkedIn daily draft
 
-- **When:** 6:00 AM IST, every day
-- **Cron (IST):** `0 6 * * *`   ·   **Cron (UTC):** `30 0 * * *`
+- **When:** 5:00 AM IST, every day (ready before JP wakes)
+- **Cron (IST):** `0 5 * * *`   ·   **Cron (UTC):** `30 23 * * *`
 - **Prompt:**
 
 ```
-Use the linkedin-daily skill. Draft one short, punchy, thought-provoking LinkedIn
-post for JP (CTO of bQ), plus a matching image via scripts/ideogram_image.py.
-Run all copy through the comms-voice skill: human, crisp, no em-dashes. Output the
-post text, the image path, and two alternate hooks. Never post. Draft only.
+Use the linkedin-daily skill. First research what is trending and picking up in
+tech right now (AI agents, dev tooling, startups, whatever is live today). Then
+draft one post for JP, co-founder and CTO of bQ, written as his own journey and
+viewpoint, with a little real flavor from what he is actually working on. Make a
+matching image via scripts/ideogram_image.py. Run all copy through the comms-voice
+skill: human, crisp, no em-dashes. Output the post, the image path, and two
+alternate hooks. Never post. Draft only.
 ```
-
-> Tip: you said you are often up at 5 AM. If you want the draft waiting by then,
-> move this to `0 5 * * *` (5:00 AM IST).
 
 ---
 
